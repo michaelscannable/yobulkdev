@@ -1,10 +1,8 @@
-import clientPromise from '../../../../lib/mongodb';
 import { schemaToColumn } from '../../../../lib/validation_util/schemaColumn';
 import { schemaGenerator } from '../../../../lib/validation_util/yovalidator';
+const db = require('../../../../lib/db');
 
-export default async function handler(req, res) {
-  const client = await clientPromise;
-  const db = client.db(process.env.DATABASE_NAME | 'yobulk');
+async function handler(req, res) {
   switch (req.method) {
     case 'GET':
       //some code...
@@ -20,8 +18,9 @@ export default async function handler(req, res) {
         }
         let template = schemaGenerator({ clonedSchema: JSON.parse(schema) });
         template['template_name'] = templateName;
-        template['columns'] = schemaToColumn({ schema: JSON.parse(schema) });
-        let result = await db.collection('templates').insertOne(template);
+        template['columns'] = JSON.stringify(schemaToColumn({ schema: JSON.parse(schema) }));
+        template['validators'] = JSON.stringify(template['validators']);
+        let result = await db('templates').insert(template);
         res.status(201).json(result);
       } catch (err) {
         console.error(err);
@@ -36,13 +35,9 @@ export default async function handler(req, res) {
       break;
 
     default:
-      res.status(405).end(`${method} Not Allowed`);
+      res.status(405).end(`${req.method} Not Allowed`);
       break;
   }
 }
 
-/**
- * 1. User submits json with format and validate function for a column
- * 2. A function will create schema json out of that json data
- * 3. when a request comes that schema json will be used in validation
- */
+export default handler;

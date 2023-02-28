@@ -1,20 +1,17 @@
-import clientPromise from '../../../lib/mongodb';
-let ObjectId = require('mongodb').ObjectId;
+import db from '../../../lib/db';
 
-export default async function importer(req, res) {
-  const client = await clientPromise;
-  const db = client.db(process.env.DATABASE_NAME | 'yobulk');
-
+async function importer(req, res) {
   switch (req.method) {
     case 'GET':
       try {
         let { importerId } = req.query;
-        let result = await db
-          .collection('importers')
-          .findOne({ _id: ObjectId(importerId) });
+        let result = await db('importers')
+          .select('*')
+          .where({ id: importerId})
+          .first();
         res.status(200).send(result);
       } catch (err) {
-        console.error(err.message);
+        console.error('ok', err.message);
         res.status(500).json({ error: 'failed to load data' });
       }
       break;
@@ -23,3 +20,5 @@ export default async function importer(req, res) {
       break;
   }
 }
+
+export default importer;

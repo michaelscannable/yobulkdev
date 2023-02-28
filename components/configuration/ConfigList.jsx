@@ -11,7 +11,6 @@ import SuccessModal from '../common/SuccessModal';
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { googlecode } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import { InformationCircleIcon } from '@heroicons/react/24/solid';
 
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
@@ -76,7 +75,7 @@ export default App;`);
       // !attachToWorkspace
       // !attachWebHookURL
     ) {
-      setError('* Please fill all the fields');
+      setError('*Please fill all the fields');
       return;
     }
 
@@ -202,42 +201,29 @@ export default App;`);
             <p className="subpixel-antialiased ">Back to list</p>
           </button>
         </Link>
-        <h1 className="text-2xl font-bold text-gray-500 dark:text-gray-200">
+        <h1 className="text-2xl font-bold text-gray-500">
           Create a Importer Configuration
         </h1>
       </div>
 
-      <div className="mt-4 mx-4 bg-white dark:bg-gray-900 rounded-md p-5 shadow-sm">
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col w-1/4">
-            <h2 className="text-lg font-bold text-gray-500 dark:text-gray-200">
-              Name <span className="text-red-400">*</span>
-            </h2>
-            <p className="text-sm text-gray-400">Name of the importer</p>
+      <div className="mt-4 mx-4 bg-white rounded-md p-5 shadow-sm">
+        <div className="flex justify-between">
+          <div className="flex flex-col">
+            <h2 className="text-lg font-bold text-gray-500">Name</h2>
+            <p className="text-gray-400">Name of the importer</p>
           </div>
-          <div className="ml-10 flex flex-col justify-center w-3/4">
+          <div className="ml-10 flex flex-col justify-center ">
             <div className="mb-2">
-              {!importerName && (
-                <div className="flex gap-1 w-full text-sm text-red-400 dark:text-red-200 justify-end mb-1">
-                  <InformationCircleIcon className="w-3 mt-1" /> This field is
-                  required
-                </div>
-              )}
               <input
                 type="text"
                 id="default-input"
-                className={`border border-gray-200 text-gray-400  text-sm rounded-lg
-                    focus:ring-blue-500 focus:border-blue-500 block w-full 
-                    p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
-                      !importerName && 'border-red-400'
-                    }`}
+                className={`border-2 border-gray-200 text-gray-400  text-sm rounded-lg
+                   focus:ring-blue-500 focus:border-blue-500 block w-[900px] 
+                   p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                 value={importerName}
                 placeholder={'Enter Your Importer Name'}
-                onChange={(e) => {
-                  setError('');
-                  setImporterName(e.target.value);
-                }}
+                onChange={(e) => setImporterName(e.target.value)}
               />
             </div>
           </div>
@@ -246,7 +232,7 @@ export default App;`);
 
       <div className="flex">
         <form className="p-5 w-7/12">
-          <div className="bg-white dark:bg-gray-900  shadow-sm rounded-md py-1 px-2 align-middle justify-between">
+          <div className="bg-white shadow-sm rounded-md py-1 px-2 align-middle justify-between">
             <AttachToImporter
               attachToImporters={attachToImporters}
               setAttachToImporters={setAttachToImporters}
@@ -281,11 +267,17 @@ export default App;`);
               setAttachWebHookURL={setAttachWebHookURL}
               availiable={false}
             />
+
+            <div className="flex p-4 align-middle items-center">
+              <div className="flex flex-col w-5/12">
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+              </div>
+            </div>
           </div>
         </form>
 
         <div className="p-5 w-5/12">
-          <div className="bg-white dark:bg-gray-900 shadow-sm rounded-md p-2 align-middle justify-between">
+          <div className="bg-white shadow-sm rounded-md p-2 align-middle justify-between">
             <SyntaxHighlighter
               language="javascript"
               showLineNumbers={true}
@@ -296,24 +288,17 @@ export default App;`);
             </SyntaxHighlighter>
 
             <CopyToClipboard text={code} onCopy={() => alert('Copied')}>
-              <div className="mt-4 flex items-center bg-white dark:bg-gray-900 justify-center rounded-md p-2 text-center cursor-pointer shadow-sm border-[0.4px]">
+              <div className="mt-4 flex items-center bg-white justify-center rounded-md p-2 text-center cursor-pointer shadow-sm border-[0.4px]">
                 <DocumentDuplicateIcon className="h-5 w-5" aria-hidden="true" />{' '}
                 COPY
               </div>
             </CopyToClipboard>
           </div>
-          {error && (
-            <div
-              className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mt-2 relative"
-              role="alert"
-            >
-              {error}
-            </div>
-          )}
+
           <div className=" items-center flex justify-center ml-auto mt-5">
             <button
               type="submit"
-              className="mt-2 bg-blue-500 text-sm border border-blue-500 text-white rounded-md hover:bg-transparent hover:text-blue-500 focus:outline-none font-medium px-6 py-2 text-center float-right"
+              className="flex bg-white border-2 border-black text-black hover:text-white hover:bg-black focus:outline-none font-medium rounded-lg text-sm px-6 py-2 text-center mb-2"
               onClick={handleClick}
             >
               Save & Generate

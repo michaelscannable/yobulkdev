@@ -8,10 +8,11 @@ export default async function matchColumns(req, res) {
       if (!Array.isArray(validationTemplateColumns) || !Array.isArray(saasTemplateColumns)){
         return res.json({status: 400, data: "Please send correct input lists"})
       }
-      let actualPrompt = `You are a column matcher. Match two lists with the following values.
-      List1: ${validationTemplateColumns}
-      List2: ${saasTemplateColumns}
-      Return the value as a json object`;
+      console.log(validationTemplateColumns, saasTemplateColumns);
+        let actualPrompt = `You are a column matcher. Match two lists with the following values.
+        List1: ${validationTemplateColumns}
+        List2: ${saasTemplateColumns}
+        Return the value as a json object`  ;
       let resp = await getGPTResponse(actualPrompt, 100, 0, 0);
       let matchedColumns = {} ;
       try {

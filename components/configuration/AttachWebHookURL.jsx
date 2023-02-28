@@ -2,17 +2,17 @@ const AttachWebHookURL = ({ setAttachWebHookURL, availiable = true }) => {
   return (
     <div
       className={`flex flex-col border-2  rounded-md ${
-        !availiable ? 'cursor-no-drop border-blue-500' : 'border-[#64B6EB]'
+        !availiable ? 'cursor-no-drop border-black' : 'border-[#64B6EB]'
       }`}
     >
       {availiable ? null : (
-        <div className="rounded-t-sm bg-blue-500 text-center text-white">
+        <div className="rounded-t-sm bg-black text-center text-white">
           COMING SOON
         </div>
       )}
       <div className="flex p-4 align-middle items-center">
         <div className="flex flex-col w-5/12">
-          <h2 className="text-lg font-bold text-gray-500 dark:text-gray-200">
+          <h2 className="text-lg font-bold text-gray-500">
             Attach A Webhook URL
           </h2>
           <p className="text-gray-400">URL where imported data is sent to</p>

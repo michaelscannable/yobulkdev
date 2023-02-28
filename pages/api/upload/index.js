@@ -20,7 +20,7 @@ const papaOptions = {
   dynamicTyping: true,
   skipEmptyLines: true,
 };
-const parseStream = Papa.parse(Papa.NODE_STREAM_INPUT, papaOptions);
+// const parseStream = Papa.parse(Papa.NODE_STREAM_INPUT, papaOptions);
 
 const dbURL = process.env.MONGODB_URI;
 const dbName = process.env.DATABASE_NAME;

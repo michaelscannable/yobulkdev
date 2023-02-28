@@ -1,25 +1,21 @@
-import clientPromise from '../../../lib/mongodb';
-let ObjectId = require('mongodb').ObjectId;
+const db = require('../../../lib/db');
 
-export default async function organization(req, res) {
-  const client = await clientPromise;
-  const db = client.db(process.env.DATABASE_NAME | 'yobulk');
-
+async function organization(req, res) {
   switch (req.method) {
     case 'POST':
       try {
-        let {orgName, workspaceName, collaborators } = req.body;
+        const { orgName, workspaceName, collaborators } = req.body;
+
         let newOrg = {
-            orgName : orgName,
-            workspaces:[
-                {
-                    workspaceId: new ObjectId(),
-                    workspaceName: workspaceName,
-                    collaborators: collaborators
-                }
-            ]
+          orgName : orgName,
+          workspaces: JSON.stringify([
+            {
+              workspaceName: workspaceName,
+              collaborators: collaborators
+            }
+          ])
         }
-        let result = await db.collection('organizations').insertOne(newOrg);
+        const result = await db('organizations').insert(newOrg);
         res.status(201).send(result)
       } catch (err) {
         console.error(err.message);
@@ -27,7 +23,9 @@ export default async function organization(req, res) {
       }
       break;
     default:
-        res.status(405).json({ error: 'method not allowed' });
-        break;
+      res.status(405).json({ error: 'method not allowed' });
+      break;
   }
 }
+
+export default organization;

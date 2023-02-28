@@ -6,11 +6,9 @@ const Templates = () => {
   return (
     <>
       <Layout>
-        <div className="overflow-x-auto h-full dark:bg-gray-800">
-          <div className="mx-4 mt-10">
-            <div className="p-6">
-              <ListTemplates />
-            </div>
+        <div className="overflow-x-auto mx-4 mt-10">
+          <div className="p-6">
+            <ListTemplates />
           </div>
         </div>
       </Layout>

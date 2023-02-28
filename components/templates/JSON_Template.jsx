@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 
 import Editor from '@monaco-editor/react';
 import { useRouter } from 'next/router';
-import { InformationCircleIcon } from '@heroicons/react/24/solid';
+
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { googlecode } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import Link from 'next/link';
@@ -117,34 +117,30 @@ const JSON_Template = () => {
 
       <div className="flex gap-4">
         <div>
-          <div className="bg-white rounded-md p-2 my-1 shadow-sm  dark:bg-gray-900">
+          <div className="bg-white rounded-md p-2 my-1 shadow-sm">
             <div className="flex">
               <div className="flex flex-col w-5/12">
-                <div className="ml-2 p-2">
-                  <h2 className="text-lg w-full font-bold text-gray-500 dark:text-gray-200">
-                    Name <span className="text-red-400">*</span>{' '}
-                  </h2>
-                  <p className="text-gray-400 text-sm">Name of the template</p>
-                </div>
+                <h2 className="m-2 text-md font-bold text-gray-500">
+                  Template Name:
+                </h2>
               </div>
               <div className="flex flex-col justify-center w-full">
                 <div className="mb-2">
                   <>
                     {!templateName && (
-                      <div className="flex gap-1 w-full text-sm text-red-400 dark:text-red-200 justify-end mb-1">
-                        <InformationCircleIcon className="w-3 inline" /> This
-                        field is required
-                      </div>
+                      <p className="text-xs text-red-700">
+                        * Template name is manadatory
+                      </p>
                     )}
                     <input
                       type="text"
                       id="default-input"
                       className={`border border-gray-300 text-gray-400  text-sm rounded-lg
-                        focus:ring-blue-500 focus:border-blue-500 block w-full
-                        p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
-                          !templateName && 'border-red-400'
-                        }`}
+                   focus:ring-blue-500 focus:border-blue-500 block w-full
+                   p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
+                      !templateName && 'border-red-700'
+                    }`}
                       value={templateName}
                       onChange={(e) => setTemplateName(e.target.value)}
                     />
@@ -224,15 +220,15 @@ const JSON_Template = () => {
 
         <div className="w-full px-2 py-3 sm:px-0">
           <Tab.Group>
-            <Tab.List className="flex space-x-1 justify-between rounded-xl bg-blue-900/20 dark:bg-white p-1">
+            <Tab.List className="flex space-x-1 justify-between rounded-xl bg-blue-900/20 p-3">
               <>
                 <Tab
                   className={({ selected }) =>
                     classNames(
                       'w-full relative rounded-lg py-2.5 text-sm font-medium leading-5',
                       selected
-                        ? 'bg-white shadow dark:bg-gray-900'
-                        : 'text-black hover:bg-white/[0.12] hover:text-white dark:hover:bg-gray-900/50'
+                        ? 'bg-white shadow'
+                        : 'text-black hover:bg-white/[0.12] hover:text-white'
                     )
                   }
                 >
@@ -248,8 +244,8 @@ const JSON_Template = () => {
                   classNames(
                     'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
                     selected
-                      ? 'bg-white shadow dark:bg-gray-900'
-                      : 'text-black hover:bg-white/[0.12] hover:text-white dark:hover:bg-gray-900/50'
+                      ? 'bg-white shadow'
+                      : 'text-black hover:bg-white/[0.12] hover:text-white'
                   )
                 }
               >
@@ -259,13 +255,13 @@ const JSON_Template = () => {
             <Tab.Panels className="mt-2">
               <Tab.Panel
                 className={classNames(
-                  'flex flex-col rounded-xl bg-white min-h-fit p-3 dark:bg-gray-900'
+                  'flex flex-col rounded-xl bg-white min-h-fit p-3'
                 )}
               >
-                <h1 className="text-md flex text-sm items-center justify-center  text-gray-600 dark:text-gray-200">
+                <h1 className="text-md flex text-sm items-center justify-center  text-gray-600">
                   Ensure to add OpenAI Secret Key in .env file.
                 </h1>
-                <h1 className="text-md flex text-sm items-center justify-center my-2 text-gray-600 dark:text-gray-200">
+                <h1 className="text-md flex text-sm items-center justify-center my-2 text-gray-600">
                   Please Refer to{' '}
                   <span className="ml-1 text-blue-700">
                     <Link href="https://doc.yobulk.dev/YoBulk%20AI/AI%20usecases">
